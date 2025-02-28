@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ybounite <ybounite@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/29 09:47:23 by ybounite          #+#    #+#             */
-/*   Updated: 2025/02/23 14:26:22 by ybounite         ###   ########.fr       */
+/*   Created: 2025/02/28 16:59:08 by ybounite          #+#    #+#             */
+/*   Updated: 2025/02/28 16:59:20 by ybounite         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
-# define BUFFER_SIZE 1
+#include "minishell.h"
 
-# include "./libft/libft.h"
-# include <stdlib.h>
-# include <fcntl.h>
-# include <unistd.h>
-
-char	*get_next_line(int fd);
-
-#endif
+void ft_free(char **list_path)
+{
+	int i = 0;
+	while (list_path[i])
+	{
+		free(list_path[i]);
+		i++;
+	}
+	free(list_path);
+}

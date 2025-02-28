@@ -1,28 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ybounite <ybounite@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/23 14:40:18 by ybounite          #+#    #+#             */
-/*   Updated: 2025/02/28 17:17:25 by ybounite         ###   ########.fr       */
+/*   Created: 2025/02/24 09:24:08 by ybounite          #+#    #+#             */
+/*   Updated: 2025/02/24 09:32:31 by ybounite         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int main()
+int	ft_strcmp(char *s1, char *s2)
 {
-	char *input = NULL;
-	while (1)
+	int (i);
+	i = 0;
+	if(!s1 && !s2)
+		return (0);
+	if (!s2)
+		return (s1[0]);
+	if (!s1) 
+		return (s2[0]);
+	while (s1[i] && s2[i])
 	{
-		input =  readline("\e[1;32m➜ \e[1;34m minishell\e[0m ");
-		if (!input)
-			break ;
-		if (!ft_strcmp(input, "exit"))
-			return (free(input), exit(0), 0);
-		free(input);
+		if (s1[i] != s2[i])
+			return (s1[i] - s2[i]);
+		i++;
 	}
-	return 0;
+	return (s1[i] - s2[i]);
 }
