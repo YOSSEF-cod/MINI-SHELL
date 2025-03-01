@@ -6,7 +6,7 @@
 /*   By: ybounite <ybounite@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 13:49:16 by ybounite          #+#    #+#             */
-/*   Updated: 2025/03/01 13:43:50 by ybounite         ###   ########.fr       */
+/*   Updated: 2025/03/01 18:24:48 by ybounite         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ typedef struct	ASTNode
 
 typedef struct s_string
 {
-	char *line;
+	char	*line;
+	char	**command;
 }	t_string;
 
 void ft_free(char **list_path);

@@ -6,7 +6,7 @@
 /*   By: ybounite <ybounite@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 14:40:18 by ybounite          #+#    #+#             */
-/*   Updated: 2025/03/01 13:54:23 by ybounite         ###   ########.fr       */
+/*   Updated: 2025/03/01 18:27:22 by ybounite         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,20 +24,20 @@
 // 	newnode->right = NULL;
 // }
 
-// t_ASTNode	*split_command(char *command)
-// {
-// 	t_ASTNode *AST;
-// 	int i = 0;
-// 	char **command = ft_split(command, ' ');
-// 	if(!command)
-// 		return ;
-// 	while (command[i])
-// 	{
-// 		AST = new_node(command[i]);
-// 		i++;
-// 	}
-// 	return (AST);
-// }
+void	ft_split_command(t_string *input)
+{
+	t_ASTNode *AST;
+	int i = 0;
+	input->command = ft_split(input->line, ' ');
+	if(!input->command)
+		return ;
+	while (input->command[i])
+	{
+		printf("%s\n", input->command[i]);
+		i++;
+	}
+}
+
 char *get_line()
 {
 	char *line;
@@ -45,9 +45,9 @@ char *get_line()
 	line =  readline("\e[1;32m➜ \e[1;34m minishell\e[0m ");
 	if (line)
 		add_history(line);
-	printf("%s\n", line);
 	return (line);
 }
+
 int main()
 {
 	t_ASTNode *ASTNode;
@@ -59,8 +59,11 @@ int main()
 		input.line = get_line();
 		if (!input.line)
 			return (1);
+		ft_split_command(&input);
 		if (!ft_strcmp(input.line, "exit"))
 			return (free(input.line), 0);
+		ft_free(input.command);
 	}
+	rl_clear_history();
 	return 0;
 }
