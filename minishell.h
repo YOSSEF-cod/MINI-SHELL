@@ -6,7 +6,7 @@
 /*   By: ybounite <ybounite@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 13:49:16 by ybounite          #+#    #+#             */
-/*   Updated: 2025/02/28 17:12:44 by ybounite         ###   ########.fr       */
+/*   Updated: 2025/03/01 13:43:50 by ybounite         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,18 @@ typedef enum {
 	GLOB = 7,
 }	NodeType;
 
-typedef struct ASTNode {
-	NodeType type;
-	char *value;
-	struct ASTNode *left;
-	struct ASTNode *right;
-} t_ASTNode;
+typedef struct	ASTNode
+{
+	NodeType			type;
+	char				*value;
+	struct	ASTNode		*left;
+	struct	ASTNode		*right;
+}	t_ASTNode;
+
+typedef struct s_string
+{
+	char *line;
+}	t_string;
 
 void ft_free(char **list_path);
 

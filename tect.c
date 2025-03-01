@@ -29,7 +29,6 @@ void print_ast(ASTNode *node) {
         printf("CMD: %s\n", node->value);
     else if (node->type == PIPE)
         printf("PIPE\n");
-    
     if (node->left) print_ast(node->left);
     if (node->right) print_ast(node->right);
 }
@@ -47,7 +46,7 @@ void execute_cmd(ASTNode *node) {
         execute_cmd(node->right);
     }
 }
-
+// ls -la | cat -e | 
 int main() {
     // Example AST for "ls -l | grep txt"
     ASTNode *cmd1 = new_node(CMD, "ls");
