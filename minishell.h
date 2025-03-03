@@ -6,7 +6,7 @@
 /*   By: ybounite <ybounite@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 13:49:16 by ybounite          #+#    #+#             */
-/*   Updated: 2025/03/02 16:49:40 by ybounite         ###   ########.fr       */
+/*   Updated: 2025/03/03 08:55:20 by ybounite         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,10 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include "libft/libft.h"
-#include <readline/readline.h>
-#include <readline/history.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <signal.h>
+# include <sys/wait.h>
 
 # define YELLOW	"\e[1;33m"
 # define RED     "\e[1;31m"
@@ -51,6 +53,15 @@ typedef struct s_string
 	char	**command;
 	int		exit_status;
 }	t_string;
+
+typedef struct s_exec_cmd
+{
+	char	*full_path;
+	char	*path;
+	char	**dirs;
+	pid_t	pid;
+	char	*cmd_path;
+}	t_exec_cmd;
 
 void ft_free(char **list_path);
 

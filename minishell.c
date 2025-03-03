@@ -6,7 +6,7 @@
 /*   By: ybounite <ybounite@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 14:40:18 by ybounite          #+#    #+#             */
-/*   Updated: 2025/03/02 16:55:26 by ybounite         ###   ########.fr       */
+/*   Updated: 2025/03/03 09:08:53 by ybounite         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 // 	newnode->left = NULL;
 // 	newnode->right = NULL;
 // }
+
 enNodeType	check_type_value(char *cmd)
 {
 	if (!ft_strcmp(cmd, "|"))
@@ -111,12 +112,20 @@ void	ft_print_list(t_env_lst *list)
 	}
 }
 
-int main()
+void	ft_freelinklist(t_env_lst *list)
+{
+	t_env_lst *ptr;
+	ptr = list;
+	while (ptr)
+	{
+		ptr = list->next;
+		free(list);
+	}
+}
+
+int	start_shell_session(t_string input)
 {
 	t_env_lst *list;
-	t_string input;
-
-	ft_bzero(&input, sizeof(t_string));
 	while (1)
 	{
 		input.line = get_line();
@@ -124,10 +133,20 @@ int main()
 			return (1);
 		list = ft_split_command(&input);
 		if (!ft_strcmp(input.line, "exit"))
-			return (free(input.line), 0);
-		ft_print_list(list);
-		ft_free(input.command);
+			return (free(input.line), ft_freelinklist(list), 0);
+		
+		// ft_print_list(list);
+		// ft_free(input.command);
 	}
 	rl_clear_history();
+}
+
+int main()
+{
+	t_env_lst *list;
+	t_string input;
+
+	ft_bzero(&input, sizeof(t_string));
+	start_shell_session(input);
 	return 0;
 }

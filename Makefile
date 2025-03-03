@@ -5,7 +5,7 @@ CFLAGSE = -Wall -Wextra -Werror
 LIBFT_DIR = libft
 LIBFT = $(LIBFT_DIR)/libft.a
 FLAGS = -lreadline
-SRC = minishell.c ft_free.c 
+SRC = minishell.c ft_free.c exec_cmd.c
 READLINE_INC = -I/usr/include/readline
 # Linker flags for readline
 READLINE_LIB = -L/usr/lib -lreadline
