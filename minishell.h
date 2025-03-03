@@ -6,7 +6,7 @@
 /*   By: ybounite <ybounite@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 13:49:16 by ybounite          #+#    #+#             */
-/*   Updated: 2025/03/03 08:55:20 by ybounite         ###   ########.fr       */
+/*   Updated: 2025/03/03 12:25:50 by ybounite         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,10 @@ typedef struct s_exec_cmd
 	char	**dirs;
 	pid_t	pid;
 	char	*cmd_path;
+	char	**cmd_flags;
 }	t_exec_cmd;
 
-void ft_free(char **list_path);
-
+void	ft_free(char **list_path);
+void	ft_free_linklist(t_env_lst *list);
+void	exec_cmd(t_env_lst *list);
 # endif

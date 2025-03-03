@@ -6,7 +6,7 @@
 /*   By: ybounite <ybounite@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 14:40:18 by ybounite          #+#    #+#             */
-/*   Updated: 2025/03/03 09:08:53 by ybounite         ###   ########.fr       */
+/*   Updated: 2025/03/03 13:21:04 by ybounite         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,14 @@ void	lstadd_back(t_env_lst **head, t_env_lst *new)
 
 t_env_lst	*ft_split_command(t_string *input)
 {
-	t_env_lst *head;
-	t_env_lst *new;
-	int i = 1;
+	t_env_lst	*head;
+	t_env_lst	*new;
+	int i;
+
+	i = 1;
 	input->command = ft_split(input->line, ' ');
 	if(!input->command)
-		return NULL;
+		return (NULL);
 	head = creatnew_node(input->command[0]);
 	while (input->command[i])
 	{
@@ -92,7 +94,7 @@ t_env_lst	*ft_split_command(t_string *input)
 	return (head);
 }
 
-char *get_line()
+char	*get_line()
 {
 	char *line;
 
@@ -112,30 +114,23 @@ void	ft_print_list(t_env_lst *list)
 	}
 }
 
-void	ft_freelinklist(t_env_lst *list)
-{
-	t_env_lst *ptr;
-	ptr = list;
-	while (ptr)
-	{
-		ptr = list->next;
-		free(list);
-	}
-}
+
 
 int	start_shell_session(t_string input)
 {
-	t_env_lst *list;
+	t_env_lst	*list;
+
 	while (1)
 	{
-		input.line = get_line();
-		if (!input.line)
-			return (1);
-		list = ft_split_command(&input);
-		if (!ft_strcmp(input.line, "exit"))
-			return (free(input.line), ft_freelinklist(list), 0);
-		
-		// ft_print_list(list);
+		input.line = get_line();// this in to rean tin line
+		if (!input.line)// sheck if this line is emty
+			return (exit(1), 1);
+		list = ft_split_command(&input);// return in list of command and spite all command or type
+		// if (!ft_strcmp(input.line, "exit"))
+		// 	return (free(input.line), ft_free_linklist(list), 0);
+		// exec_cmd(list);
+		ft_print_list(list);
+		ft_free_linklist(list);
 		// ft_free(input.command);
 	}
 	rl_clear_history();
@@ -147,6 +142,6 @@ int main()
 	t_string input;
 
 	ft_bzero(&input, sizeof(t_string));
-	start_shell_session(input);
+	start_shell_session(input); //start in shell 
 	return 0;
 }

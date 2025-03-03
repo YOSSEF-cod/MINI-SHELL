@@ -6,7 +6,7 @@
 /*   By: ybounite <ybounite@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 16:59:08 by ybounite          #+#    #+#             */
-/*   Updated: 2025/02/28 16:59:20 by ybounite         ###   ########.fr       */
+/*   Updated: 2025/03/03 13:21:04 by ybounite         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,4 +21,16 @@ void ft_free(char **list_path)
 		i++;
 	}
 	free(list_path);
+}
+
+void	ft_free_linklist(t_env_lst *list)
+{
+	t_env_lst *ptr;
+	ptr = list;
+	while (ptr)
+	{
+		ptr = list->next;
+		free(list);
+		list = ptr;
+	}
 }
