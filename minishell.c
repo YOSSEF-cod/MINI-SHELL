@@ -6,7 +6,7 @@
 /*   By: ybounite <ybounite@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 14:40:18 by ybounite          #+#    #+#             */
-/*   Updated: 2025/03/03 13:21:04 by ybounite         ###   ########.fr       */
+/*   Updated: 2025/03/03 14:16:21 by ybounite         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,35 +44,6 @@ enNodeType	check_type_value(char *cmd)
 		return (CMD);
 }
 
-t_env_lst	*creatnew_node(char *cmd)
-{
-	t_env_lst *new;
-
-	new = malloc(sizeof(t_env_lst));
-	if (!new)
-		return (NULL);
-	new->value = cmd;
-	new->type = check_type_value(cmd);
-	new->next = NULL;
-	return (new);
-}
-
-void	lstadd_back(t_env_lst **head, t_env_lst *new)
-{
-	t_env_lst *ptr;
-
-	if (!head || !new)
-		return ;
-	if (!head)
-	{
-		ptr = new;
-		return ;
-	}
-	ptr = *head;
-	while (ptr->next)
-		ptr = ptr->next;
-	ptr->next = new;
-}
 
 t_env_lst	*ft_split_command(t_string *input)
 {
@@ -114,8 +85,6 @@ void	ft_print_list(t_env_lst *list)
 	}
 }
 
-
-
 int	start_shell_session(t_string input)
 {
 	t_env_lst	*list;
@@ -126,12 +95,16 @@ int	start_shell_session(t_string input)
 		if (!input.line)// sheck if this line is emty
 			return (exit(1), 1);
 		list = ft_split_command(&input);// return in list of command and spite all command or type
-		// if (!ft_strcmp(input.line, "exit"))
-		// 	return (free(input.line), ft_free_linklist(list), 0);
-		// exec_cmd(list);
-		ft_print_list(list);
-		ft_free_linklist(list);
-		// ft_free(input.command);
+		if (!ft_strcmp(input.line, "exit"))
+		{
+			deallocate_env_lst_elem(list);
+			free(input.line);
+			break ;
+		}
+		exec_cmd(list, &input);
+		// ft_print_list(list);
+		deallocate_env_lst_elem(list);
+		free(input.line);
 	}
 	rl_clear_history();
 }

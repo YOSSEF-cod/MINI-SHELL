@@ -6,81 +6,67 @@
 /*   By: ybounite <ybounite@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 08:55:38 by ybounite          #+#    #+#             */
-/*   Updated: 2025/03/03 12:29:43 by ybounite         ###   ########.fr       */
+/*   Updated: 2025/03/03 14:51:51 by ybounite         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-extern char	**environ;
+extern char **environ;
 
-char	*find_executable_path(t_exec_cmd	*exec_cmd, t_env_lst *list)
+char *find_executable_path(t_exec_cmd *exec_cmd, t_env_lst *list)
 {
+	int i = 0;
 	exec_cmd->path = getenv("PATH");
 	if (!exec_cmd->path)
-	{
-		printf("minishell: PATH not found\n");
-		return NULL;
-	}
+		return (printf("minishell: PATH not found\n"), NULL);
 	exec_cmd->dirs = ft_split(exec_cmd->path, ':');
-	int i = 0;
-	while (exec_cmd->dirs[i])
+	while (exec_cmd->dirs[i]) 
 	{
 		exec_cmd->full_path = ft_strjoin(exec_cmd->dirs[i], "/");
-		if (list->type = CMD)
-			exec_cmd->full_path = ft_strjoin(exec_cmd->dirs[i], list->value);
+		if (list->type == CMD)
+			exec_cmd->full_path = ft_strjoin(exec_cmd->full_path, list->value);
 		if (access(exec_cmd->full_path, X_OK) == 0)
-		{
-			ft_free(exec_cmd->dirs);
-			return (exec_cmd->full_path);
-		}
-		ft_free(exec_cmd->dirs);
+			return (free_arr(exec_cmd->dirs), exec_cmd->full_path);
+		free(exec_cmd->full_path);
 		i++;
 	}
-	ft_free(exec_cmd->dirs);
+	return (free_arr(exec_cmd->dirs), NULL);
 }
 
 char	*get_path()
 {
-	char	*path;
-
-	path = getenv("PATH"); // Jib PATH
+	char *path = getenv("PATH"); // Get PATH
 	if (!path)
 	{
 		printf("minishell: PATH not found\n");
-		return (NULL);
-	} 
-	return (path);
-}
-char	**check_flags_in_command(t_env_lst *list)
-{
-	char	**cmd;
-
+		return NULL;
+	}
+	return path;
 }
 
-void	exec_cmd(t_env_lst *list)
+int	exec_cmd(t_env_lst *list, t_string *string)
 {
 	t_exec_cmd	*exec_cmd;
 	pid_t		pid;
-	char		*cmd_path;
 
+	exec_cmd = malloc(sizeof(t_exec_cmd));
+	if (!exec_cmd)
+		return (perror("malloc failed"), 1);
 	exec_cmd->cmd_path = find_executable_path(exec_cmd, list);
-	exec_cmd->cmd_flags = check_flags_in_command(list);
+	if (!exec_cmd->cmd_path)
+		return ( printf("minishell: command not found %s\n",string->command[0]), free(exec_cmd), 1);  // Free exec_cmd if no path was found
 	pid = fork();
 	if (pid == -1)
+		return (perror("fork"), free(exec_cmd), 1);
+	if (pid == 0)
 	{
-		perror("fork");
-		return ;
+		if (execve(exec_cmd->cmd_path, string->command, environ) == -1)
+			return (perror("minishell"), exit(1), 1);
 	}
-	if (pid == 0) // Process enfant
-	{
-		if (execve(exec_cmd->cmd_path, exec_cmd->cmd_flags, environ) == -1)
-		{
-			perror("minishell");
-			exit(1);
-		}
-	}
-	else // Process parent
+	else
 		wait(NULL);
-	free(cmd_path);
+	free(exec_cmd->cmd_path);
+	free(exec_cmd);
+	return (0);
 }

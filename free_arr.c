@@ -1,36 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free.c                                          :+:      :+:    :+:   */
+/*   free_arr.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ybounite <ybounite@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/28 16:59:08 by ybounite          #+#    #+#             */
-/*   Updated: 2025/03/03 13:21:04 by ybounite         ###   ########.fr       */
+/*   Created: 2025/03/03 13:47:41 by ybounite          #+#    #+#             */
+/*   Updated: 2025/03/03 13:48:42 by ybounite         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void ft_free(char **list_path)
+void	free_arr(char **arr)
 {
-	int i = 0;
-	while (list_path[i])
-	{
-		free(list_path[i]);
-		i++;
-	}
-	free(list_path);
-}
+	int		i;
 
-void	ft_free_linklist(t_env_lst *list)
-{
-	t_env_lst *ptr;
-	ptr = list;
-	while (ptr)
+	i = 0;
+	if (!arr)
+		return ;
+	while (arr[i])
 	{
-		ptr = list->next;
-		free(list);
-		list = ptr;
+		free(arr[i]);
+		++i;
 	}
+	free(arr);
 }
