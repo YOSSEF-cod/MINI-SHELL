@@ -6,7 +6,7 @@
 /*   By: ybounite <ybounite@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 13:49:16 by ybounite          #+#    #+#             */
-/*   Updated: 2025/03/03 14:51:51 by ybounite         ###   ########.fr       */
+/*   Updated: 2025/03/04 13:51:14 by ybounite         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef enum {
 	REDOUT = 6, // >
 	GLOB = 7, //*
 	BACKGROUND, // ;
+	BUILTINS, // echo -n cd pwd export unset env exit
 }	enNodeType;
 
 typedef struct	s_environement_list
@@ -78,6 +79,11 @@ int			exec_cmd(t_env_lst *list, t_string *string);
 /*                       FILE 	=	free_arr.c                            	  */
 /* -------------------------------------------------------------------------- */
 void		free_arr(char **arr);
+ 
+/* -------------------------------------------------------------------------- */
+/*                               FILE = manage_signal.c                     */
+/* -------------------------------------------------------------------------- */
+void	assign_signals_handler();
 
 /* -------------------------------------------------------------------------- */
 /*                               FILE = dealocate_sdata.c                     */

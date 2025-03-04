@@ -6,7 +6,7 @@
 /*   By: ybounite <ybounite@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 14:40:18 by ybounite          #+#    #+#             */
-/*   Updated: 2025/03/03 14:16:21 by ybounite         ###   ########.fr       */
+/*   Updated: 2025/03/04 13:51:14 by ybounite         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,13 @@
 // 	newnode->left = NULL;
 // 	newnode->right = NULL;
 // }
-
+int	check_is_builtins(char *cmd)
+{
+	return (!ft_strcmp(cmd, "echo") || !ft_strcmp(cmd, "cd")
+		|| !ft_strcmp(cmd, "pwd") || !ft_strcmp(cmd, "export")
+		|| !ft_strcmp(cmd, "unset") || !ft_strcmp(cmd, "env")
+		|| !ft_strcmp(cmd, "exit"));
+}
 enNodeType	check_type_value(char *cmd)
 {
 	if (!ft_strcmp(cmd, "|"))
@@ -40,6 +46,8 @@ enNodeType	check_type_value(char *cmd)
 		return (GLOB);
 	else if (!ft_strcmp(cmd, ";"))
 		return (BACKGROUND);
+	else if (check_is_builtins(cmd))
+		return (BUILTINS);
 	else
 		return (CMD);
 }
@@ -97,14 +105,17 @@ int	start_shell_session(t_string input)
 		list = ft_split_command(&input);// return in list of command and spite all command or type
 		if (!ft_strcmp(input.line, "exit"))
 		{
+			printf("exit\n");
 			deallocate_env_lst_elem(list);
 			free(input.line);
+			free_arr(input.command);
 			break ;
 		}
 		exec_cmd(list, &input);
-		// ft_print_list(list);
+		ft_print_list(list);
 		deallocate_env_lst_elem(list);
 		free(input.line);
+		free_arr(input.command);
 	}
 	rl_clear_history();
 }
@@ -115,6 +126,7 @@ int main()
 	t_string input;
 
 	ft_bzero(&input, sizeof(t_string));
+	assign_signals_handler();
 	start_shell_session(input); //start in shell 
 	return 0;
 }

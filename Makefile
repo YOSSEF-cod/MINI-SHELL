@@ -1,12 +1,13 @@
 NAME = minishell
 CC = cc
-CFLAGSE = -Wall -Wextra -Werror -g3 -fsanitize=address 
+CFLAGSE = -Wall -Wextra -Werror #-g3 -fsanitize=address 
 
 LIBFT_DIR = libft
 LIBFT = $(LIBFT_DIR)/libft.a
 FLAGS = -lreadline
 
 SRC = 	minishell.c \
+		manage_signal.c \
 		ft_lestnew.c  \
 		allocate_sdata.c \
 		exec_cmd.c \

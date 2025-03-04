@@ -6,7 +6,7 @@
 /*   By: ybounite <ybounite@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 08:55:38 by ybounite          #+#    #+#             */
-/*   Updated: 2025/03/03 14:51:51 by ybounite         ###   ########.fr       */
+/*   Updated: 2025/03/04 13:43:47 by ybounite         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,12 @@ char *find_executable_path(t_exec_cmd *exec_cmd, t_env_lst *list)
 	{
 		exec_cmd->full_path = ft_strjoin(exec_cmd->dirs[i], "/");
 		if (list->type == CMD)
+		{
 			exec_cmd->full_path = ft_strjoin(exec_cmd->full_path, list->value);
-		if (access(exec_cmd->full_path, X_OK) == 0)
-			return (free_arr(exec_cmd->dirs), exec_cmd->full_path);
+			printf("%s\n", exec_cmd->full_path);
+			if (access(exec_cmd->full_path, X_OK) == 0)
+				return (free_arr(exec_cmd->dirs), exec_cmd->full_path);
+		}
 		free(exec_cmd->full_path);
 		i++;
 	}
@@ -61,6 +64,7 @@ int	exec_cmd(t_env_lst *list, t_string *string)
 		return (perror("fork"), free(exec_cmd), 1);
 	if (pid == 0)
 	{
+
 		if (execve(exec_cmd->cmd_path, string->command, environ) == -1)
 			return (perror("minishell"), exit(1), 1);
 	}
