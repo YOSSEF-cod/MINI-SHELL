@@ -6,15 +6,13 @@
 /*   By: ybounite <ybounite@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 08:55:38 by ybounite          #+#    #+#             */
-/*   Updated: 2025/03/04 13:43:47 by ybounite         ###   ########.fr       */
+/*   Updated: 2025/03/04 15:14:35 by ybounite         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-extern char **environ;
-
-char *find_executable_path(t_exec_cmd *exec_cmd, t_env_lst *list)
+char	*find_executable_path(t_exec_cmd *exec_cmd, t_env_lst *list)
 {
 	int i = 0;
 	exec_cmd->path = getenv("PATH");
@@ -45,10 +43,10 @@ char	*get_path()
 		printf("minishell: PATH not found\n");
 		return NULL;
 	}
-	return path;
+	return (path);
 }
 
-int	exec_cmd(t_env_lst *list, t_string *string)
+int	send_to_exec(t_env_lst *list, t_string *string)
 {
 	t_exec_cmd	*exec_cmd;
 	pid_t		pid;

@@ -6,7 +6,7 @@
 /*   By: ybounite <ybounite@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 13:49:16 by ybounite          #+#    #+#             */
-/*   Updated: 2025/03/04 13:51:14 by ybounite         ###   ########.fr       */
+/*   Updated: 2025/03/04 15:14:35 by ybounite         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@
 # define WHITE   "\e[1;37m"
 # define MINISPELL "\e[1;32m➜ \e[1;34m minishell\e[0m "
 // "\001\e[1;38;5;141m\002[minispell]\001\e[1;33m\002 > \001\033[0m\002"
+
+extern char **environ;
 
 typedef enum {
 	CMD = 1, //command 
@@ -72,8 +74,10 @@ void		lstadd_back(t_env_lst **head, t_env_lst *new);
 t_env_lst	*creatnew_node(char *cmd);
 enNodeType	check_type_value(char *cmd);
 
-
-int			exec_cmd(t_env_lst *list, t_string *string);
+/* -------------------------------------------------------------------------- */
+/*                       FILE 	=	exec_cmd.c                           	  */
+/* -------------------------------------------------------------------------- */
+int			send_to_exec(t_env_lst *list, t_string *string);
 
 /* -------------------------------------------------------------------------- */
 /*                       FILE 	=	free_arr.c                            	  */
@@ -81,7 +85,7 @@ int			exec_cmd(t_env_lst *list, t_string *string);
 void		free_arr(char **arr);
  
 /* -------------------------------------------------------------------------- */
-/*                               FILE = manage_signal.c                     */
+/*                               FILE = manage_signal.c                       */
 /* -------------------------------------------------------------------------- */
 void	assign_signals_handler();
 

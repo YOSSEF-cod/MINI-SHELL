@@ -8,6 +8,7 @@ FLAGS = -lreadline
 
 SRC = 	minishell.c \
 		manage_signal.c \
+		handler_quotes.c \
 		ft_lestnew.c  \
 		allocate_sdata.c \
 		exec_cmd.c \

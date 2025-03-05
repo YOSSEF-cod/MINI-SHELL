@@ -6,7 +6,7 @@
 /*   By: ybounite <ybounite@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 14:40:18 by ybounite          #+#    #+#             */
-/*   Updated: 2025/03/04 13:51:14 by ybounite         ###   ########.fr       */
+/*   Updated: 2025/03/04 17:32:50 by ybounite         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ char	*get_line()
 	char *line;
 
 	line =  readline(MINISPELL);
+	if (!line)
+		exit(1);
 	if (line)
 		add_history(line);
 	return (line);
@@ -93,6 +95,28 @@ void	ft_print_list(t_env_lst *list)
 	}
 }
 
+void	send_echo_command(t_env_lst *list)
+{
+	int check = 0;
+	while (list && list->type == CMD)
+	{
+		if (check == 1)
+			printf(" ");
+		printf("%s", list->value);
+		check = 1;
+		list = list->next;
+	}
+	printf("\n");
+}
+
+int	builtins_command(t_env_lst *list)
+{
+	if (list->type == BUILTINS)
+	{
+		if (!ft_strcmp(list->value, "echo"))
+			send_echo_command(list->next);
+	}
+}
 int	start_shell_session(t_string input)
 {
 	t_env_lst	*list;
@@ -100,8 +124,6 @@ int	start_shell_session(t_string input)
 	while (1)
 	{
 		input.line = get_line();// this in to rean tin line
-		if (!input.line)// sheck if this line is emty
-			return (exit(1), 1);
 		list = ft_split_command(&input);// return in list of command and spite all command or type
 		if (!ft_strcmp(input.line, "exit"))
 		{
@@ -111,8 +133,9 @@ int	start_shell_session(t_string input)
 			free_arr(input.command);
 			break ;
 		}
-		exec_cmd(list, &input);
-		ft_print_list(list);
+		builtins_command(list);
+		send_to_exec(list, &input);
+		// ft_print_list(list);
 		deallocate_env_lst_elem(list);
 		free(input.line);
 		free_arr(input.command);
@@ -127,6 +150,10 @@ int main()
 
 	ft_bzero(&input, sizeof(t_string));
 	assign_signals_handler();
-	start_shell_session(input); //start in shell 
+	start_shell_session(input); //start in shell
+	// char	*str;
+	// str = ft_splitquotes(" heloo  'wold");
+	// printf("%s", str);
+	// free(str);
 	return 0;
 }
