@@ -6,7 +6,7 @@
 /*   By: ybounite <ybounite@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 14:40:18 by ybounite          #+#    #+#             */
-/*   Updated: 2025/03/04 17:32:50 by ybounite         ###   ########.fr       */
+/*   Updated: 2025/03/05 17:47:32 by ybounite         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,9 @@ t_env_lst	*ft_split_command(t_string *input)
 	int i;
 
 	i = 1;
-	input->command = ft_split(input->line, ' ');
+	if (ft_calcule_quotes(input->line) % 2 != 0 && ft_calcule_dquotes(input->line) % 2 != 0)
+		input->command = ft_split(input->line, ' ');
+	
 	if(!input->command)
 		return (NULL);
 	head = creatnew_node(input->command[0]);
@@ -109,14 +111,14 @@ void	send_echo_command(t_env_lst *list)
 	printf("\n");
 }
 
-int	builtins_command(t_env_lst *list)
-{
-	if (list->type == BUILTINS)
-	{
-		if (!ft_strcmp(list->value, "echo"))
-			send_echo_command(list->next);
-	}
-}
+// int	builtins_command(t_env_lst *list)
+// {
+// 	if (list->type == BUILTINS)
+// 	{
+// 		if (!ft_strcmp(list->value, "echo"))
+// 			send_echo_command(list->next);
+// 	}	
+// }
 int	start_shell_session(t_string input)
 {
 	t_env_lst	*list;
@@ -133,7 +135,7 @@ int	start_shell_session(t_string input)
 			free_arr(input.command);
 			break ;
 		}
-		builtins_command(list);
+		// builtins_command(list);
 		send_to_exec(list, &input);
 		// ft_print_list(list);
 		deallocate_env_lst_elem(list);
@@ -141,6 +143,7 @@ int	start_shell_session(t_string input)
 		free_arr(input.command);
 	}
 	rl_clear_history();
+	return (0);
 }
 
 int main()
@@ -151,8 +154,8 @@ int main()
 	ft_bzero(&input, sizeof(t_string));
 	assign_signals_handler();
 	start_shell_session(input); //start in shell
-	// char	*str;
-	// str = ft_splitquotes(" heloo  'wold");
+	char	*str;
+	// str = ft_splitquotes("\" heloo  \"\' wold\"\"");
 	// printf("%s", str);
 	// free(str);
 	return 0;
