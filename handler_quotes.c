@@ -6,7 +6,7 @@
 /*   By: ybounite <ybounite@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 17:03:51 by ybounite          #+#    #+#             */
-/*   Updated: 2025/03/06 14:39:23 by ybounite         ###   ########.fr       */
+/*   Updated: 2025/03/07 17:42:11 by ybounite         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,9 @@ int	ft_calcule_quotes(char *str)
 	return (counter);
 }
 
-int	ft_clean_len(char *str)
+int	count_tokens(char *str)
 {
-	int i;
-
+	int (i), 
 	i = 0;
 	if (!str)
 		return i;
