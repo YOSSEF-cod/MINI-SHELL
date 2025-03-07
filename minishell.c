@@ -6,7 +6,7 @@
 /*   By: ybounite <ybounite@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 14:40:18 by ybounite          #+#    #+#             */
-/*   Updated: 2025/03/05 17:47:32 by ybounite         ###   ########.fr       */
+/*   Updated: 2025/03/06 14:34:01 by ybounite         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,34 +23,7 @@
 // 	newnode->left = NULL;
 // 	newnode->right = NULL;
 // }
-int	check_is_builtins(char *cmd)
-{
-	return (!ft_strcmp(cmd, "echo") || !ft_strcmp(cmd, "cd")
-		|| !ft_strcmp(cmd, "pwd") || !ft_strcmp(cmd, "export")
-		|| !ft_strcmp(cmd, "unset") || !ft_strcmp(cmd, "env")
-		|| !ft_strcmp(cmd, "exit"));
-}
-enNodeType	check_type_value(char *cmd)
-{
-	if (!ft_strcmp(cmd, "|"))
-		return (PIPE);
-	else if (!ft_strcmp(cmd, "||"))
-		return (OR);
-	else if (!ft_strcmp(cmd, "&&"))
-		return (AND);
-	else if (!ft_strcmp(cmd, "<"))
-		return (REDIN);
-	else if (!ft_strcmp(cmd, ">"))
-		return (REDOUT);
-	else if (!ft_strcmp(cmd, "*"))
-		return (GLOB);
-	else if (!ft_strcmp(cmd, ";"))
-		return (BACKGROUND);
-	else if (check_is_builtins(cmd))
-		return (BUILTINS);
-	else
-		return (CMD);
-}
+
 
 
 t_env_lst	*ft_split_command(t_string *input)
@@ -62,7 +35,6 @@ t_env_lst	*ft_split_command(t_string *input)
 	i = 1;
 	if (ft_calcule_quotes(input->line) % 2 != 0 && ft_calcule_dquotes(input->line) % 2 != 0)
 		input->command = ft_split(input->line, ' ');
-	
 	if(!input->command)
 		return (NULL);
 	head = creatnew_node(input->command[0]);
@@ -119,6 +91,7 @@ void	send_echo_command(t_env_lst *list)
 // 			send_echo_command(list->next);
 // 	}	
 // }
+
 int	start_shell_session(t_string input)
 {
 	t_env_lst	*list;
@@ -136,8 +109,8 @@ int	start_shell_session(t_string input)
 			break ;
 		}
 		// builtins_command(list);
-		send_to_exec(list, &input);
-		// ft_print_list(list);
+		// send_to_exec(list, &input);
+		ft_print_list(list);
 		deallocate_env_lst_elem(list);
 		free(input.line);
 		free_arr(input.command);
@@ -153,10 +126,13 @@ int main()
 
 	ft_bzero(&input, sizeof(t_string));
 	assign_signals_handler();
-	start_shell_session(input); //start in shell
+	// start_shell_session(input); //start in shell
 	char	*str;
-	// str = ft_splitquotes("\" heloo  \"\' wold\"\"");
+	str = ft_splitquotes(get_line());
 	// printf("%s", str);
-	// free(str);
+	// str = ft_split(get_line(), '\"');
+	// for (int i = 0; str[i]; i++)
+	// 	printf("%s\n", str[i]);
+	free(str);
 	return 0;
 }

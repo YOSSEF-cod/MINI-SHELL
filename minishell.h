@@ -6,7 +6,7 @@
 /*   By: ybounite <ybounite@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 13:49:16 by ybounite          #+#    #+#             */
-/*   Updated: 2025/03/05 17:47:32 by ybounite         ###   ########.fr       */
+/*   Updated: 2025/03/06 14:39:23 by ybounite         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,14 +82,25 @@ int			send_to_exec(t_env_lst *list, t_string *string);
 /* -------------------------------------------------------------------------- */
 /*                               FILE = handler_quotes.c                      */
 /* -------------------------------------------------------------------------- */
-char	*ft_splitquotes(char *str);
-int	ft_calcule_dquotes(char *str);
-int	ft_calcule_quotes(char *str);
+char		*ft_splitquotes(char *str);
+int			ft_calcule_dquotes(char *str);
+int			ft_calcule_quotes(char *str);
 /* -------------------------------------------------------------------------- */
 /*                               FILE = manage_signal.c                       */
 /* -------------------------------------------------------------------------- */
-void	assign_signals_handler();
+void		assign_signals_handler();
 
+/* -------------------------------------------------------------------------- */
+/*                       FILE 	=	check_type.c                          	  */
+/* -------------------------------------------------------------------------- */
+int			check_is_builtins(char *cmd);
+enNodeType	check_type_value(char *cmd);
+
+
+/* -------------------------------------------------------------------------- */
+/*                       FILE 	=	ft_error.c                            	  */
+/* -------------------------------------------------------------------------- */
+void		ft_error_quotes(char quotes);
 
 /* -------------------------------------------------------------------------- */
 /*                       FILE 	=	free_arr.c                            	  */

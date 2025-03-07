@@ -8,11 +8,13 @@ FLAGS = -lreadline
 
 SRC = 	minishell.c \
 		manage_signal.c \
+		check_type.c \
 		handler_quotes.c \
 		ft_lestnew.c  \
 		allocate_sdata.c \
 		exec_cmd.c \
 		dealocate_sdata.c \
+		ft_error.c \
 		free_arr.c 
 
 READLINE_INC = -I/usr/include/readline

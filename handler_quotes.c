@@ -6,7 +6,7 @@
 /*   By: ybounite <ybounite@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 17:03:51 by ybounite          #+#    #+#             */
-/*   Updated: 2025/03/05 16:48:23 by ybounite         ###   ########.fr       */
+/*   Updated: 2025/03/06 14:39:23 by ybounite         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,10 @@ char	*ft_splitquotes(char *str)
 
 	i = 0;
 	x = 0;
-	if (ft_calcule_quotes(str) % 2 != 0 && ft_calcule_dquotes(str) % 2 != 0)
-	{
-		ft_putendl_fd("Error", 1);
-		exit(1);
-	}
+	if (ft_calcule_quotes(str) % 2 != 0)
+		ft_error_quotes('\'');
+	if (ft_calcule_dquotes(str) % 2 != 0)
+		ft_error_quotes('\"');
 	ptr = malloc(ft_clean_len(str) + 1);
 	if (!ptr)
 		return (NULL);
@@ -76,4 +75,13 @@ char	*ft_splitquotes(char *str)
 		return (ptr[x - 1] = '\0', ptr);
 	ptr[x] = '\0';
 	return (ptr);
+}
+char	**control_split_argement(char *str)
+{
+	char **argement;
+
+	if (ft_calcule_dquotes(str) % 2 == 0)
+		argement = ft_split(str, '\"');
+	// if (ft_calcule_quotes(str) % 2 == 0)
+		
 }
