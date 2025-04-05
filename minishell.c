@@ -6,28 +6,25 @@
 /*   By: ybounite <ybounite@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 14:40:18 by ybounite          #+#    #+#             */
-/*   Updated: 2025/04/05 08:53:37 by ybounite         ###   ########.fr       */
+/*   Updated: 2025/04/05 09:49:58 by ybounite         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// t_ASTNode *new_node(char *cmd)
+// int	builtins_command(t_env_lst *list)
 // {
-// 	t_ASTNode *newnode;
-// 	newnode = malloc(sizeof(t_ASTNode));
-// 	if (!newnode)
-// 		return NULL;
-// 	newnode->value = cmd;
-// 	newnode->type = check_type();
-// 	newnode->left = NULL;
-// 	newnode->right = NULL;
+// 	if (list->type == BUILTINS)
+// 	{
+// 		if (!ft_strcmp(list->value, "echo"))
+// 			send_echo_command(list->next);
+// 	}	
 // }
-char **splter(char *str)
-{
 
-}
+// char **splter(char *str)
+// {
 
+// }
 
 t_env_lst	*ft_split_command(t_string *input)
 {
@@ -87,15 +84,6 @@ void	send_echo_command(t_env_lst *list)
 	}
 	printf("\n");
 }
-
-// int	builtins_command(t_env_lst *list)
-// {
-// 	if (list->type == BUILTINS)
-// 	{
-// 		if (!ft_strcmp(list->value, "echo"))
-// 			send_echo_command(list->next);
-// 	}	
-// }
 
 int	start_shell_session(t_string input)
 {
