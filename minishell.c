@@ -6,7 +6,7 @@
 /*   By: ybounite <ybounite@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 14:40:18 by ybounite          #+#    #+#             */
-/*   Updated: 2025/03/06 14:34:01 by ybounite         ###   ########.fr       */
+/*   Updated: 2025/04/05 08:53:37 by ybounite         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,10 @@
 // 	newnode->left = NULL;
 // 	newnode->right = NULL;
 // }
+char **splter(char *str)
+{
 
+}
 
 
 t_env_lst	*ft_split_command(t_string *input)
@@ -33,7 +36,6 @@ t_env_lst	*ft_split_command(t_string *input)
 	int i;
 
 	i = 1;
-	if (ft_calcule_quotes(input->line) % 2 != 0 && ft_calcule_dquotes(input->line) % 2 != 0)
 		input->command = ft_split(input->line, ' ');
 	if(!input->command)
 		return (NULL);
@@ -53,7 +55,10 @@ char	*get_line()
 
 	line =  readline(MINISPELL);
 	if (!line)
+	{
+		perror("Error\n");
 		exit(1);
+	}
 	if (line)
 		add_history(line);
 	return (line);
@@ -126,13 +131,6 @@ int main()
 
 	ft_bzero(&input, sizeof(t_string));
 	assign_signals_handler();
-	// start_shell_session(input); //start in shell
-	char	*str;
-	str = ft_splitquotes(get_line());
-	// printf("%s", str);
-	// str = ft_split(get_line(), '\"');
-	// for (int i = 0; str[i]; i++)
-	// 	printf("%s\n", str[i]);
-	free(str);
+	start_shell_session(input); //start in shell
 	return 0;
 }

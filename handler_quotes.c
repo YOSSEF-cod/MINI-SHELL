@@ -6,7 +6,7 @@
 /*   By: ybounite <ybounite@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 17:03:51 by ybounite          #+#    #+#             */
-/*   Updated: 2025/03/07 17:42:11 by ybounite         ###   ########.fr       */
+/*   Updated: 2025/04/05 08:51:12 by ybounite         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	ft_calcule_quotes(char *str)
 
 int	count_tokens(char *str)
 {
-	int (i), 
+	int (i);
 	i = 0;
 	if (!str)
 		return i;
@@ -51,30 +51,30 @@ int	count_tokens(char *str)
 	return (i);
 }
 
-char	*ft_splitquotes(char *str)
-{
-	int		i;
-	int		x;
-	char	*ptr;
+// char	*ft_splitquotes(char *str)
+// {
+// 	int		i;
+// 	int		x;
+// 	char	*ptr;
 
-	i = 0;
-	x = 0;
-	if (ft_calcule_quotes(str) % 2 != 0)
-		ft_error_quotes('\'');
-	if (ft_calcule_dquotes(str) % 2 != 0)
-		ft_error_quotes('\"');
-	ptr = malloc(ft_clean_len(str) + 1);
-	if (!ptr)
-		return (NULL);
-	if (str[i] == '\"' || str[i] == '\'')
-		i++;
-	while (str[i])
-		ptr[x++] = str[i++];
-	if (ptr[x - 1] == '\'' || ptr[x - 1] == '\"')
-		return (ptr[x - 1] = '\0', ptr);
-	ptr[x] = '\0';
-	return (ptr);
-}
+// 	i = 0;
+// 	x = 0;
+// 	if (ft_calcule_quotes(str) % 2 != 0)
+// 		ft_error_quotes('\'');
+// 	if (ft_calcule_dquotes(str) % 2 != 0)
+// 		ft_error_quotes('\"');
+// 	ptr = malloc(ft_clean_len(str) + 1);
+// 	if (!ptr)
+// 		return (NULL);
+// 	if (str[i] == '\"' || str[i] == '\'')
+// 		i++;
+// 	while (str[i])
+// 		ptr[x++] = str[i++];
+// 	if (ptr[x - 1] == '\'' || ptr[x - 1] == '\"')
+// 		return (ptr[x - 1] = '\0', ptr);
+// 	ptr[x] = '\0';
+// 	return (ptr);
+// }
 char	**control_split_argement(char *str)
 {
 	char **argement;
@@ -82,5 +82,5 @@ char	**control_split_argement(char *str)
 	if (ft_calcule_dquotes(str) % 2 == 0)
 		argement = ft_split(str, '\"');
 	// if (ft_calcule_quotes(str) % 2 == 0)
-		
+	return argement;		
 }

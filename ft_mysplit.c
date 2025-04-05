@@ -6,7 +6,7 @@
 /*   By: ybounite <ybounite@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 14:53:44 by ybounite          #+#    #+#             */
-/*   Updated: 2025/03/07 17:42:11 by ybounite         ###   ########.fr       */
+/*   Updated: 2025/03/08 08:35:54 by ybounite         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+
+char **split_command(char *cmd);
+void free_tokens(char **tokens);
 
 int	ft_isspace(char c)
 {
@@ -31,24 +34,39 @@ void	ft_skipespase(char *cmd, int *i)
 		(*i)++;
 }
 
-int	ft_len(char *str)
-{
-	int (i), (cont);
-	i = 0;
-	cont = 0;
+// int	count_tokens(char *str)
+// {
+// 	int (i), (count);
+// 	i = 0;
+// 	count = 0;
 	
-	while (str[i])
-	{
-		while ((ft_isspace(str[i]) || ft_isquotes(str[i])) && str[i])
-			i++;
-		if (str[i] != ' ' && str[i] != '\'' && str[i] != '\"' && str[i])
-			cont++;
-		while (str[i] != ' ' && str[i] != '\'' && str[i] != '\"' && str[i])
-			i++;
-	}
-	return (cont);
-}
-
+// 	while (str[i])
+// 	{
+// 		ft_skipespase(str, &i);
+// 		if (str[i] == '\0')
+// 			break;
+// 		count++;
+// 		if (str[i] == '"' || str[i] == '\'')
+// 		{
+// 			i++;
+// 			while (str[i])
+// 			{
+// 				if ((str[i] == '\\' && str[i + 1] == '"') || (str[i] == '\\' && str[i + 1] == '\''))
+// 					i += 2;
+// 				else if (str[i] == '"')
+// 				{
+// 					i++;
+// 					break ;
+// 				}
+// 				else
+// 					i++;
+// 			}
+// 		}else
+// 			while (str[i] != ' ' && str[i] != '\'' && str[i] != '\"' && str[i])
+// 				i++;
+// 	}
+// 	return (count);
+// }
 
 int count_tokens(char *cmd)
 {
@@ -60,13 +78,13 @@ int count_tokens(char *cmd)
 		ft_skipespase(cmd, &i);
 		if (cmd[i] == '\0')
 			break;  // Exit if end of string
-			count++;  // Start a new token
+		count++;  // Start a new token
 		if (cmd[i] == '"' || cmd[i] == '\'')
 		{
 			i++;
 			while (cmd[i] != '\0')
 			{
-				if ((cmd[i] == '\\' && cmd[i+1] == '"') || (cmd[i] == '\\' && cmd[i+1] == '"'))
+				if ((cmd[i] == '\\' && cmd[i + 1] == '"') || (cmd[i] == '\\' && cmd[i + 1] == '"'))
 					i += 2;  // Skip escaped quote
 				else if (cmd[i] == '"')
 				{
@@ -85,15 +103,15 @@ int count_tokens(char *cmd)
 
 int main()
 {
-    char *command = "echo \"hello world\" \"hes' word'two\"";
-    // char **tokens = split_command(command);
+    char *command = "echo \"hello world\" hes' word'two";
+    char **tokens = split_command(command);
 
 	printf("%d", count_tokens(command));
-    // printf("Count: %d\n", count_tokens(command));
-    // for (int i = 0; tokens[i] != NULL; i++) {
-    //     printf("Token[%d]: '%s'\n", i, tokens[i]);
-    // }
-    // free_tokens(tokens);
+    printf("Count: %d\n", count_tokens(command));
+    for (int i = 0; tokens[i] != NULL; i++) {
+        printf("Token[%d]: '%s'\n", i, tokens[i]);
+    }
+    free_tokens(tokens);
     return 0;
 }
 // char	**parse_command(char *str)
