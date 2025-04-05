@@ -6,7 +6,7 @@
 /*   By: ybounite <ybounite@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 14:40:18 by ybounite          #+#    #+#             */
-/*   Updated: 2025/04/05 09:49:58 by ybounite         ###   ########.fr       */
+/*   Updated: 2025/04/05 11:11:38 by ybounite         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_env_lst	*ft_split_command(t_string *input)
 	int i;
 
 	i = 1;
-		input->command = ft_split(input->line, ' ');
+		input->command = ft_split(input->line, '|');
 	if(!input->command)
 		return (NULL);
 	head = creatnew_node(input->command[0]);
@@ -92,21 +92,22 @@ int	start_shell_session(t_string input)
 	while (1)
 	{
 		input.line = get_line();// this in to rean tin line
-		list = ft_split_command(&input);// return in list of command and spite all command or type
+		input.command = ft_spliter(input.line); // return in list of command and spite all command or type
 		if (!ft_strcmp(input.line, "exit"))
 		{
 			printf("exit\n");
-			deallocate_env_lst_elem(list);
+			// deallocate_env_lst_elem(list);
 			free(input.line);
 			free_arr(input.command);
 			break ;
 		}
 		// builtins_command(list);
 		// send_to_exec(list, &input);
-		ft_print_list(list);
-		deallocate_env_lst_elem(list);
-		free(input.line);
-		free_arr(input.command);
+		// ft_print_list(list);
+		// deallocate_env_lst_elem(list);
+		// free(input.line);
+		// free_arr(input.command);
+		print_cmd(input.command);
 	}
 	rl_clear_history();
 	return (0);

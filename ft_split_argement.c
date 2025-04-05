@@ -6,7 +6,7 @@
 /*   By: ybounite <ybounite@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 08:58:14 by ybounite          #+#    #+#             */
-/*   Updated: 2025/04/05 09:46:50 by ybounite         ###   ########.fr       */
+/*   Updated: 2025/04/05 10:46:32 by ybounite         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	ft_calcule_quotes(char *str, char quote_char)
 	return (counter);
 }
 
-char *get_operator(const char *s)
+char	*get_operator(const char *s)
 {
 	if (ft_strncmp(s, "&&", 2) == 0)
 		return "&&";
@@ -40,10 +40,14 @@ char *get_operator(const char *s)
 		return "||";
 	if (ft_strncmp(s, "|", 1) == 0)
 		return "|";
-	if (ft_strncmp(s, ";", 1) == 0)
-		return ";";
+	if (ft_strncmp(s, ">", 1) == 0)
+		return ">";
+	if (ft_strncmp(s, "<", 1) == 0)
+		return "<";
 	if (ft_strncmp(s, "&", 1) == 0)
 		return "&";
+	if (ft_strncmp(s, ";", 1) == 0)
+		return ";";
 	return	NULL;
 }
 
@@ -78,24 +82,24 @@ int ft_count_argement(char *str)
 
 int lenofword(char *str)
 {
-    int		len;
-    char	quote_char;
+	int		len;
+	char	quote_char;
 
 	len = 0;
-    while (str[len] == ' ')
-        len++;
-    if (str[len] == '\'' || str[len] == '"')
-    {
-        quote_char = str[len++];
-        while (str[len] && str[len] != quote_char)
-            len++;
-        if (str[len] == quote_char)
-            len++;
-    }
-    else
-        while (str[len] && str[len] != ' ' && str[len] != '\'' && str[len] != '"')
-            len++;
-    return len;
+	while (str[len] == ' ')
+		len++;
+	if (str[len] == '\'' || str[len] == '"')
+	{
+		quote_char = str[len++];
+		while (str[len] && str[len] != quote_char)
+			len++;
+		if (str[len] == quote_char)
+			len++;
+	}
+	else
+		while (str[len] && str[len] != ' ' && str[len] != '\'' && str[len] != '"')
+		len++;
+	return len;
 }
 
 char	*ft_full_arr(char *str, int len_word)
@@ -115,7 +119,18 @@ char	*ft_full_arr(char *str, int len_word)
 	ptr[i] = '\0';
 	return (ptr);
 }
-
+int cont_argement(char *s)
+{
+	int i = 0;
+	while (s[i])
+	{
+		if (is_operator(s[i]))
+			i++;
+			
+		i++;
+	}
+	
+}
 char	**ft_split_argement(char *str)
 {
 	int i = 0;

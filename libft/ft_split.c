@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybounite <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ybounite <ybounite@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 19:23:53 by ybounite          #+#    #+#             */
-/*   Updated: 2024/10/29 19:23:57 by ybounite         ###   ########.fr       */
+/*   Updated: 2025/04/05 11:06:49 by ybounite         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "libft.h"
 
 static	void	ft_free(char **result, int count)

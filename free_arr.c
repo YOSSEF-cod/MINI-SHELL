@@ -6,7 +6,7 @@
 /*   By: ybounite <ybounite@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 13:47:41 by ybounite          #+#    #+#             */
-/*   Updated: 2025/03/03 13:48:42 by ybounite         ###   ########.fr       */
+/*   Updated: 2025/04/05 11:10:14 by ybounite         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,14 @@ void	free_arr(char **arr)
 		++i;
 	}
 	free(arr);
+}
+void	print_cmd(char **cmd)
+{
+	int i = 0;
+	while (cmd[i])
+	{
+		printf("%s\n", cmd[i]);
+		i++;
+	}
+	
 }

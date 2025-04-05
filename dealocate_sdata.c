@@ -6,7 +6,7 @@
 /*   By: ybounite <ybounite@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 13:44:10 by ybounite          #+#    #+#             */
-/*   Updated: 2025/03/03 13:51:29 by ybounite         ###   ########.fr       */
+/*   Updated: 2025/04/05 11:10:14 by ybounite         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 void	deallocate_env_lst_elem(t_env_lst *list)
 {
 	t_env_lst *ptr;
+	if (!list)
+		return ;
 	ptr = list;
 	while (ptr)
 	{
